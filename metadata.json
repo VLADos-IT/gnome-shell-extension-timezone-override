@@ -1,0 +1,15 @@
+{
+  "uuid": "timezone-override@VLADos-IT.github.com",
+  "name": "Timezone Override",
+  "description": "Overrides the top panel clock timezone without changing system time.",
+  "shell-version": [
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50"
+  ],
+  "url": "https://github.com/VLADos-IT/gnome-shell-extension-timezone-override",
+  "settings-schema": "org.gnome.shell.extensions.timezone-override"
+}

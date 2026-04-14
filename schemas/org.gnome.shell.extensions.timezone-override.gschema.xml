@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.timezone-override" path="/org/gnome/shell/extensions/timezone-override/">
+    <key name="timezone" type="s">
+      <default>"UTC"</default>
+      <summary>Timezone settings</summary>
+      <description>Enter time zone e.g., UTC, Europe/London</description>
+    </key>
+  </schema>
+</schemalist>
