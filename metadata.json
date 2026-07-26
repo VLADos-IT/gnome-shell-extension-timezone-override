@@ -11,5 +11,8 @@
     "50"
   ],
   "url": "https://github.com/VLADos-IT/gnome-shell-extension-timezone-override",
-  "settings-schema": "org.gnome.shell.extensions.timezone-override"
+  "settings-schema": "org.gnome.shell.extensions.timezone-override",
+  "donations": {
+    "custom": "https://pay.cloudtips.ru/p/13f23675"
+  }
 }

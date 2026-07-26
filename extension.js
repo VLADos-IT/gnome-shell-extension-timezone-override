@@ -8,9 +8,6 @@ export default class TimezoneOverrideExtension extends Extension {
         super(metadata);
         this._settings = null;
         this._desktopSettings = null;
-        this._clockNotifyId = null;
-        this._settingsConnectId = null;
-        this._desktopSettingsIds = []; // key -> id
     }
 
     enable() {
@@ -20,12 +17,11 @@ export default class TimezoneOverrideExtension extends Extension {
         const dateMenu = Main.panel?.statusArea?.dateMenu;
         if (!dateMenu?._clock || !dateMenu._clockDisplay) return;
 
-        this._clockNotifyId = dateMenu._clock.connect('notify::clock', this._updateClock.bind(this));
-        this._settingsConnectId = this._settings.connect('changed::timezone', this._updateClock.bind(this));
+        dateMenu._clock.connectObject('notify::clock', this._updateClock.bind(this), this);
+        this._settings.connectObject('changed::timezone', this._updateClock.bind(this), this);
 
         ['clock-format', 'clock-show-weekday', 'clock-show-date', 'clock-show-seconds'].forEach(key => {
-            const id = this._desktopSettings.connect(`changed::${key}`, this._updateClock.bind(this));
-            this._desktopSettingsIds.push(id);
+            this._desktopSettings.connectObject(`changed::${key}`, this._updateClock.bind(this), this);
         });
 
         this._updateClock();
@@ -57,20 +53,9 @@ export default class TimezoneOverrideExtension extends Extension {
     disable() {
         const dateMenu = Main.panel?.statusArea?.dateMenu;
 
-        if (this._clockNotifyId && dateMenu?._clock) {
-            dateMenu._clock.disconnect(this._clockNotifyId);
-            this._clockNotifyId = null;
-        }
-
-        if (this._settingsConnectId && this._settings) {
-            this._settings.disconnect(this._settingsConnectId);
-            this._settingsConnectId = null;
-        }
-
-        if (this._desktopSettings && this._desktopSettingsIds.length > 0) {
-            this._desktopSettingsIds.forEach(id => this._desktopSettings.disconnect(id));
-            this._desktopSettingsIds = [];
-        }
+        dateMenu?._clock?.disconnectObject(this);
+        this._settings?.disconnectObject(this);
+        this._desktopSettings?.disconnectObject(this);
 
         if (dateMenu?._clock && dateMenu._clockDisplay) {
             dateMenu._clockDisplay.set_text(dateMenu._clock.clock);
