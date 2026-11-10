@@ -4,7 +4,7 @@ A GNOME Shell extension that overrides the top panel clock timezone without edit
 
 ## Compatibility
 
-Supported GNOME Shell versions: 45, 46, 47, 48, 49, 50.
+Supported GNOME Shell versions: 45, 46, 47, 48, 49, 50, 51.
 
 ## Donation
 
